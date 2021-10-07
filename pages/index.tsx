@@ -1,6 +1,8 @@
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import MainAppBar from '../components/MainAppBar';
 
 const Home: NextPage = () => {
   return (
@@ -9,9 +11,12 @@ const Home: NextPage = () => {
         <title>Next Auth Sample</title>
       </Head>
       <main>
-        <Typography variant="body1" component="p">
-          Welcome OnBoard
-        </Typography>
+        <MainAppBar />
+        <Grid container justifyContent="center">
+          <Typography variant="h2" component="h2">
+            Welcome On Board
+          </Typography>
+        </Grid>
       </main>
     </div>
   );
