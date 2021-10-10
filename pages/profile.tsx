@@ -1,21 +1,21 @@
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
 import type { NextPage } from 'next';
 import Head from 'next/head';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
 
-const Home: NextPage = () => {
+const ProfilePage: NextPage = () => {
   return (
     <div>
       <Head>
-        <title>Next Auth Sample</title>
+        <title>Profile Page</title>
       </Head>
       <Grid container justifyContent="center">
         <Typography variant="h2" component="h2">
-          Welcome On Board
+          Profile Page
         </Typography>
       </Grid>
     </div>
   );
 };
 
-export default Home;
+export default ProfilePage;
