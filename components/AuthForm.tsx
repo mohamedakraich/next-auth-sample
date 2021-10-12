@@ -1,14 +1,18 @@
 import React, { useRef, useState } from 'react';
+import axios, { AxiosResponse } from 'axios';
+import { signIn } from 'next-auth/react';
+
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import axios, { AxiosResponse } from 'axios';
+
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const theme = createTheme();
 
@@ -55,6 +59,13 @@ const AuthForm = () => {
     // Add validion here is optional!
 
     if (isLogin) {
+      console.log(email, password);
+      const result = await signIn('credentials', {
+        email,
+        password,
+        redirect: false,
+      });
+      console.log(result);
     } else {
       await createUser(email, password);
     }

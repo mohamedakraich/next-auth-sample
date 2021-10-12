@@ -1,4 +1,6 @@
 import * as React from 'react';
+import { useSession } from 'next-auth/react';
+
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -11,6 +13,11 @@ import CssBaseline from '@mui/material/CssBaseline';
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const Layout: React.FC = ({ children }) => {
+  const { data: session, status } = useSession();
+
+  //"loading" | "authenticated" | "unauthenticated"
+  console.log(status, session);
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -25,19 +32,25 @@ const Layout: React.FC = ({ children }) => {
             >
               Next Auth
             </Typography>
-            <Link href="/auth" passHref>
-              <Button color="inherit" sx={{ mr: 2 }}>
-                Login
+            {!session && status !== 'loading' && (
+              <Link href="/auth" passHref>
+                <Button color="inherit" sx={{ mr: 2 }}>
+                  Login
+                </Button>
+              </Link>
+            )}
+            {session && (
+              <Link href="/profile" passHref>
+                <Button color="inherit" sx={{ mr: 2 }}>
+                  Profile
+                </Button>
+              </Link>
+            )}
+            {session && (
+              <Button variant="outlined" color="inherit">
+                Logout
               </Button>
-            </Link>
-            <Link href="/profile" passHref>
-              <Button color="inherit" sx={{ mr: 2 }}>
-                Profile
-              </Button>
-            </Link>
-            <Button variant="outlined" color="inherit">
-              Logout
-            </Button>
+            )}
           </Toolbar>
         </AppBar>
         <Offset />
