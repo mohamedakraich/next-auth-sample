@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -9,20 +8,56 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios, { AxiosResponse } from 'axios';
 
 const theme = createTheme();
 
+const createUser = async (email: string, password: string) => {
+  try {
+    const response: AxiosResponse = await axios.post('/api/auth/signup', {
+      email,
+      password,
+    });
+    console.log('response.data', response.data);
+  } catch (error) {
+    // Error 😨
+    if (error.response) {
+      /*
+       * The request was made and the server responded with a
+       * status code that falls out of the range of 2xx
+       */
+      console.log(error.response.data);
+      console.log(error.response.status);
+      console.log(error.response.headers);
+    } else if (error.request) {
+      /*
+       * The request was made but no response was received, `error.request`
+       * is an instance of XMLHttpRequest in the browser and an instance
+       * of http.ClientRequest in Node.js
+       */
+      console.log(error.request);
+    } else {
+      // Something happened in setting up the request and triggered an Error
+      console.log('Error', error.message);
+    }
+    console.log(error);
+  }
+};
+
 const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    // Add validion here is optional!
+
+    if (isLogin) {
+    } else {
+      await createUser(email, password);
+    }
   };
 
   function switchAuthModeHandler() {
@@ -32,7 +67,6 @@ const AuthForm = () => {
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline />
         <Box
           sx={{
             marginTop: 8,
@@ -56,6 +90,8 @@ const AuthForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   fullWidth
                   id="email"
@@ -66,6 +102,8 @@ const AuthForm = () => {
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   fullWidth
                   name="password"
