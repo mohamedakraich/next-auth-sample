@@ -42,6 +42,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/material", "virtual:c79ae8622b0a6df1b6df0b89149b5a63e9c02e8be913ca5c06574d33f172e56f169c7f62d9130a600cd327c6a276b2609dba4d08aeadfe3c371e365bba7bf3c8#npm:5.0.3"],
             ["@types/bcryptjs", "npm:2.4.2"],
             ["@types/mongodb", "npm:4.0.7"],
+            ["@types/node", "npm:16.10.4"],
             ["@types/react", "npm:17.0.27"],
             ["axios", "npm:0.22.0"],
             ["bcryptjs", "npm:2.4.3"],
@@ -1036,6 +1037,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-node-npm-16.10.3-ae1d2f8739-3fd429bce8.zip/node_modules/@types/node/",
           "packageDependencies": [
             ["@types/node", "npm:16.10.3"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:16.10.4", {
+          "packageLocation": "./.yarn/cache/@types-node-npm-16.10.4-ea6f08c441-0ed43dd58a.zip/node_modules/@types/node/",
+          "packageDependencies": [
+            ["@types/node", "npm:16.10.4"]
           ],
           "linkType": "HARD",
         }]
@@ -4830,6 +4838,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@mui/material", "virtual:c79ae8622b0a6df1b6df0b89149b5a63e9c02e8be913ca5c06574d33f172e56f169c7f62d9130a600cd327c6a276b2609dba4d08aeadfe3c371e365bba7bf3c8#npm:5.0.3"],
             ["@types/bcryptjs", "npm:2.4.2"],
             ["@types/mongodb", "npm:4.0.7"],
+            ["@types/node", "npm:16.10.4"],
             ["@types/react", "npm:17.0.27"],
             ["axios", "npm:0.22.0"],
             ["bcryptjs", "npm:2.4.3"],

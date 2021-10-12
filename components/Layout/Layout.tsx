@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 
 import { styled } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
@@ -17,6 +17,10 @@ const Layout: React.FC = ({ children }) => {
 
   //"loading" | "authenticated" | "unauthenticated"
   console.log(status, session);
+
+  const logoutHandler = () => {
+    signOut();
+  };
 
   return (
     <React.Fragment>
@@ -47,7 +51,11 @@ const Layout: React.FC = ({ children }) => {
               </Link>
             )}
             {session && (
-              <Button variant="outlined" color="inherit">
+              <Button
+                variant="outlined"
+                color="inherit"
+                onClick={logoutHandler}
+              >
                 Logout
               </Button>
             )}
