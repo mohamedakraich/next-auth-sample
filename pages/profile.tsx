@@ -1,20 +1,16 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import Grid from '@mui/material/Grid';
-import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import UserProfile from '../components/UserProfile';
 
 const ProfilePage: NextPage = () => {
   return (
-    <div>
+    <Box>
       <Head>
         <title>Profile Page</title>
       </Head>
-      <Grid container justifyContent="center">
-        <Typography variant="h2" component="h2">
-          Profile Page
-        </Typography>
-      </Grid>
-    </div>
+      <UserProfile />
+    </Box>
   );
 };
 
