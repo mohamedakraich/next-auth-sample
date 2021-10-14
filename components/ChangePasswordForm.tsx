@@ -8,16 +8,22 @@ import TextField from '@mui/material/TextField';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
+import { PasswordDataType } from './UserProfile';
 
 const theme = createTheme();
 
-const ChangePasswordForm = () => {
+const ChangePasswordForm = ({
+  onChangePassword,
+}: {
+  onChangePassword: (passworddata: PasswordDataType) => Promise<void>;
+}) => {
   const [newPassword, setNewPassword] = useState('');
   const [oldPassword, setOldPassword] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    onChangePassword({ oldPassword, newPassword });
   };
 
   return (
@@ -40,26 +46,27 @@ const ChangePasswordForm = () => {
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
+                  id="new-password"
+                  name="new-password"
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   required
                   fullWidth
-                  id="newPassword"
                   label="New Password"
-                  name="newPassword"
+                  type="password"
                   autoComplete="new-password"
                 />
               </Grid>
               <Grid item xs={12}>
                 <TextField
+                  id="old-password"
+                  name="old-password"
                   value={oldPassword}
                   onChange={(e) => setOldPassword(e.target.value)}
                   required
                   fullWidth
-                  name="oldPassword"
                   label="Old Password"
                   type="password"
-                  id="oldPassword"
                   autoComplete="new-password"
                 />
               </Grid>

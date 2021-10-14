@@ -46,7 +46,7 @@ const createUser = async (email: string, password: string) => {
       email,
       password,
     });
-  } catch (error: any) {
+  } catch (error) {
     if (axios.isAxiosError(error)) {
       console.log('isAxiosError');
       if (error.response) {
@@ -79,6 +79,8 @@ const AuthForm = () => {
       })) as unknown as SignInReturnType;
       if (!result.error) {
         router.replace('/profile');
+      } else {
+        console.log(result.error);
       }
     } else {
       await createUser(email, password);

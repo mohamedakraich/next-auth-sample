@@ -47,3 +47,5 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   client.close();
   res.status(200).json({ message: 'Password Updated' });
 };
+
+export default handler;
