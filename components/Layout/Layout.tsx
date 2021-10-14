@@ -2,21 +2,19 @@ import * as React from 'react';
 import { useSession, signOut } from 'next-auth/react';
 
 import { styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Link from 'next/link';
-import CssBaseline from '@mui/material/CssBaseline';
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
 const Layout: React.FC = ({ children }) => {
   const { data: session, status } = useSession();
-
-  //"loading" | "authenticated" | "unauthenticated"
-  console.log(status, session);
 
   const logoutHandler = () => {
     signOut();

@@ -1,9 +1,8 @@
 import React from 'react';
-import type { NextPage, NextContext } from 'next';
+import type { NextPage, NextPageContext } from 'next';
 import Head from 'next/head';
 import { getSession } from 'next-auth/react';
 import UserProfile from '../components/UserProfile';
-import { GetServerSideProps } from 'next';
 
 const ProfilePage: NextPage = () => {
   return (
@@ -16,9 +15,7 @@ const ProfilePage: NextPage = () => {
   );
 };
 
-export async function getServerSideProps(
-  context: NextContext
-): GetServerSideProps {
+export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession({ req: context.req });
   if (!session)
     return {

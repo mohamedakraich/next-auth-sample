@@ -17,35 +17,48 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 
 const theme = createTheme();
 
+interface SignInReturnType {
+  /**
+   * Will be different error codes,
+   * depending on the type of error.
+   */
+  error: string | undefined;
+  /**
+   * HTTP status code,
+   * hints the kind of error that happened.
+   */
+  status: number;
+  /**
+   * `true` if the signin was successful
+   */
+  ok: boolean;
+  /**
+   * `null` if there was an error,
+   * otherwise the url the user
+   * should have been redirected to.
+   */
+  url: string | null;
+}
+
 const createUser = async (email: string, password: string) => {
   try {
     const response: AxiosResponse = await axios.post('/api/auth/signup', {
       email,
       password,
     });
-    console.log('response.data', response.data);
-  } catch (error) {
-    // Error 😨
-    if (error.response) {
-      /*
-       * The request was made and the server responded with a
-       * status code that falls out of the range of 2xx
-       */
-      console.log(error.response.data);
-      console.log(error.response.status);
-      console.log(error.response.headers);
-    } else if (error.request) {
-      /*
-       * The request was made but no response was received, `error.request`
-       * is an instance of XMLHttpRequest in the browser and an instance
-       * of http.ClientRequest in Node.js
-       */
-      console.log(error.request);
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      console.log('isAxiosError');
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      }
     } else {
-      // Something happened in setting up the request and triggered an Error
       console.log('Error', error.message);
     }
-    console.log(error);
   }
 };
 
@@ -58,19 +71,15 @@ const AuthForm = () => {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    // Add validion here is optional!
-
     if (isLogin) {
-      console.log(email, password);
-      const result = await signIn('credentials', {
+      const result = (await signIn('credentials', {
         email,
         password,
         redirect: false,
-      });
+      })) as unknown as SignInReturnType;
       if (!result.error) {
         router.replace('/profile');
       }
-      console.log(result);
     } else {
       await createUser(email, password);
     }
