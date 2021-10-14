@@ -2,7 +2,8 @@ import Grid from '@mui/material/Grid';
 import Head from 'next/head';
 import AuthForm from '../components/AuthForm';
 
-import type { NextPage } from 'next';
+import type { NextPage, NextPageContext, GetServerSideProps } from 'next';
+import { getSession } from 'next-auth/react';
 
 const AuthPage: NextPage = () => {
   return (
@@ -20,5 +21,23 @@ const AuthPage: NextPage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(
+  context: NextPageContext
+): GetServerSideProps {
+  const session = await getSession({ req: context.req });
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default AuthPage;

@@ -1,5 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
+import { useRouter } from 'next/router';
 import { signIn } from 'next-auth/react';
 
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -52,6 +53,7 @@ const AuthForm = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -65,6 +67,9 @@ const AuthForm = () => {
         password,
         redirect: false,
       });
+      if (!result.error) {
+        router.replace('/profile');
+      }
       console.log(result);
     } else {
       await createUser(email, password);
