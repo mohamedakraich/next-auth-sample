@@ -27,7 +27,7 @@ const UserProfile = () => {
           console.log(error.request);
         }
       } else {
-        console.log('Error', error.message);
+        console.log('Error', error);
       }
     }
   };
